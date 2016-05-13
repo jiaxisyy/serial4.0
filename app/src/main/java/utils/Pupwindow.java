@@ -33,7 +33,7 @@ public class Pupwindow extends Activity implements View.OnClickListener {
         if(popupWindow.isShowing()){
             popupWindow.dismiss();
         }
-        popupWindow.setFocusable(true);
+        popupWindow.setFocusable(false);
         popupWindow.setOutsideTouchable(true);
         int[] location = new int[2];
         view.getLocationOnScreen(location);

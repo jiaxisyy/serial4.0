@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 import utils.Constants;
 import utils.PopUtils;
-
+import utils.Pupwindow;
 
 
 /**
@@ -37,6 +37,7 @@ import utils.PopUtils;
 public class ATimingActivity extends Activity implements View.OnClickListener {
 
     private TextView ATiming_1, ATiming_2, ATiming_3, ATiming_4, ATiming_5, ATiming_6, ATiming_7, ATiming_8, ATiming_9, ATiming_10, ATiming_11, ATiming_12, ATiming_13;
+    private int[] local,str;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -235,89 +236,83 @@ public class ATimingActivity extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.ATiming_1:
-                showPopWindow(ATiming_1, Constants.Define.OP_WORD_D, 400);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{400};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_2:
-                showPopWindow(ATiming_2, Constants.Define.OP_WORD_D, 402);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{402};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_3:
-                showPopWindow(ATiming_3, Constants.Define.OP_WORD_D, 404);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{404};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_4:
-                showPopWindow(ATiming_4, Constants.Define.OP_WORD_D, 406);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{406};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_5:
-                showPopWindow(ATiming_5, Constants.Define.OP_WORD_D, 408);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{408};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_6:
-                showPopWindow(ATiming_6, Constants.Define.OP_WORD_D, 410);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{410};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_7:
-                showPopWindow(ATiming_7, Constants.Define.OP_WORD_D, 412);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{412};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_8:
-                showPopWindow(ATiming_8, Constants.Define.OP_WORD_D, 414);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{414};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_9:
-                showPopWindow(ATiming_9, Constants.Define.OP_WORD_D, 416);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{416};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_10:
-                showPopWindow(ATiming_10, Constants.Define.OP_WORD_D, 418);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{418};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_11:
-                showPopWindow(ATiming_11, Constants.Define.OP_WORD_D, 420);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{420};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_12:
-                showPopWindow(ATiming_12, Constants.Define.OP_WORD_D, 422);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{422};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_13:
-                showPopWindow(ATiming_13, Constants.Define.OP_WORD_D, 424);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{424};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
         }
-    }
-
-
-
-    private void showPopWindow( final TextView t, final int type, final int stadr) {
-        View view = LayoutInflater.from(this).inflate(R.layout.ed_dialog,null);
-        final PopupWindow pw = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,false);
-        pw.setFocusable(true);
-        pw.setOutsideTouchable(true);
-        pw.setBackgroundDrawable(new BitmapDrawable());
-        pw.setAnimationStyle(R.style.myanimation);
-        pw.showAtLocation(view, Gravity.CENTER, 0, 0);
-        pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-            @Override
-            public void onDismiss() {
-                PopUtils.setBackgroundAlpha(1.0f, ATimingActivity.this);//����Popw��ʧ����Ϊ͸��
-            }
-        });
-        PopUtils.setBackgroundAlpha(0.3f, ATimingActivity.this);//����popw����ʱ����͸����
-        final EditText editText= (EditText) view.findViewById(R.id.editText);
-        TextView cancel= (TextView) view.findViewById(R.id.cancel);
-        TextView sure= (TextView) view.findViewById(R.id.sure);
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pw.dismiss();
-            }
-        });
-        sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String s = editText.getText().toString();
-                if(s!=null&&!s.equals("")){
-                    short i = Short.parseShort(s);
-                    short[] b2 = new short[1];
-                    b2[0] = i;
-                    MyApplication.getInstance().mdbuswriteword(type, b2, stadr, 1);
-                }
-//            	setData();  
-                pw.dismiss();
-            }
-        });
     }
 }

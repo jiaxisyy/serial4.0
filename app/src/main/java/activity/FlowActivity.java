@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 import utils.Constants;
 import utils.PopUtils;
-
+import utils.Pupwindow;
 
 
 /**
@@ -140,13 +140,13 @@ public class FlowActivity extends Activity implements View.OnClickListener, View
                 startActivity(intent);
                 break;
             case R.id.flow_et_totalflow_correct:
-                if (flow_et_totalflow_correct.getText() != null && !flow_et_totalflow_correct.getText().equals("")) {
-                    showPopWindow(flow_et_totalflow_correct,Constants.Define.OP_DWORD_D,272);
-                }
+               int[] local=new int[2];
+                v.getLocationInWindow(local);
+                int[] str = {272};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_DWORD_D,str);
                 break;
         }
     }
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         switch (v.getId()){
@@ -184,60 +184,14 @@ public class FlowActivity extends Activity implements View.OnClickListener, View
                     Timer time = new Timer();
                     time.schedule(timerTask, 500);
                 }
-
                 break;
         }
         return false;
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         flag=false;
-    }
-
-    private void showPopWindow( final TextView t, final int type, final int stadr) {
-        View view = LayoutInflater.from(this).inflate(R.layout.ed_dialog,null);
-        final PopupWindow pw = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,false);
-        pw.setFocusable(true);
-        pw.setOutsideTouchable(true);
-        pw.setBackgroundDrawable(new BitmapDrawable());
-        pw.setAnimationStyle(R.style.myanimation);
-        pw.showAtLocation(view, Gravity.CENTER, 0, 0);
-        pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-            @Override
-            public void onDismiss() {
-                PopUtils.setBackgroundAlpha(1.0f, FlowActivity.this);//����Popw��ʧ����Ϊ͸��
-            }
-        });
-        PopUtils.setBackgroundAlpha(0.3f, FlowActivity.this);//����popw����ʱ����͸����
-        final EditText editText= (EditText) view.findViewById(R.id.editText);
-        TextView cancel= (TextView) view.findViewById(R.id.cancel);
-        TextView sure= (TextView) view.findViewById(R.id.sure);
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pw.dismiss();
-            }
-        });
-        sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String s = editText.getText().toString();
-                if(s!=null&&!s.equals("")){
-                    int i = Integer.parseInt(s);
-                    int[] i1={i};
-                    MyApplication.getInstance().mdbuswritedword(type, i1, stadr, 1);
-//                     getData();
-                }
-
-
-
-                pw.dismiss();
-            }
-        });
     }
 
 }

@@ -22,7 +22,7 @@ import android.widget.PopupWindow;
 
 import utils.Constants;
 import utils.PopUtils;
-
+import utils.Pupwindow;
 
 
 /**
@@ -38,8 +38,6 @@ public class AnalogActivity extends Activity implements View.OnClickListener {
             super.handleMessage(msg);
             switch (msg.what){
                 case 1:
-
-
                     /**����дUI���º���*/
                     if(String.valueOf(msg.getData().getShortArray("d10")[0])!=null && !String.valueOf(msg.getData().getShortArray("d10")[0]).equals("")){
                         analog_et_oxy_original.setText(String.valueOf(msg.getData().getShortArray("d10")[0]));
@@ -136,6 +134,7 @@ public class AnalogActivity extends Activity implements View.OnClickListener {
     private TextView analog_et_oxy_min,analog_et_flow_min,analog_et_concentration_min,analog_et_temp_min;
     private TextView analog_et_oxy_correction,analog_et_flow_correction,analog_et_concentration_correction,analog_et_temp_correction;
     private boolean flag=true;
+    private int[] local,str;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,10 +192,7 @@ public class AnalogActivity extends Activity implements View.OnClickListener {
     }
     /**���ݳ�ʼ��*/
     public void initData(){
-
-
     }
-
     /**���ݻ�ȡ*/
     public void getData(){
         new Thread(new Runnable() {
@@ -331,90 +327,80 @@ public class AnalogActivity extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.analog_et_oxy_max:
-                showPopWindow(analog_et_oxy_max,Constants.Define.OP_REAL_D,200);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{200};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_flow_max:
-                showPopWindow(analog_et_flow_max,Constants.Define.OP_REAL_D,216);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{216};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_concentration_max:
-                showPopWindow(analog_et_concentration_max,Constants.Define.OP_REAL_D,232);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{232};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_temp_max:
-                showPopWindow(analog_et_temp_max,Constants.Define.OP_REAL_D,248);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{248};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_oxy_min:
-                showPopWindow(analog_et_oxy_min,Constants.Define.OP_REAL_D,204);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{204};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_flow_min:
-                showPopWindow(analog_et_flow_min,Constants.Define.OP_REAL_D,220);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{220};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_concentration_min:
-                showPopWindow(analog_et_concentration_min,Constants.Define.OP_REAL_D,236);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{236};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_temp_min:
-                showPopWindow(analog_et_temp_min,Constants.Define.OP_REAL_D,252);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{252};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id. analog_et_oxy_correction:
-                showPopWindow(analog_et_oxy_correction,Constants.Define.OP_REAL_D,208);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{208};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_flow_correction:
-                showPopWindow(analog_et_flow_correction,Constants.Define.OP_REAL_D,224);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{224};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_concentration_correction:
-                showPopWindow(analog_et_concentration_correction,Constants.Define.OP_REAL_D,240);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{240};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_temp_correction:
-                showPopWindow(analog_et_temp_correction,Constants.Define.OP_REAL_D,256);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{256};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
         }
     }
-
-
-
-    private void showPopWindow( final TextView t, final int type, final int stadr) {
-        View view = LayoutInflater.from(this).inflate(R.layout.ed_dialog,null);
-        final PopupWindow pw = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,false);
-        pw.setFocusable(true);
-        pw.setOutsideTouchable(true);
-        pw.setBackgroundDrawable(new BitmapDrawable());
-        pw.setAnimationStyle(R.style.myanimation);
-        pw.showAtLocation(view, Gravity.CENTER, 0, 0);
-        pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-            @Override
-            public void onDismiss() {
-                PopUtils.setBackgroundAlpha(1.0f, AnalogActivity.this);//����Popw��ʧ����Ϊ͸��
-            }
-        });
-        PopUtils.setBackgroundAlpha(0.3f, AnalogActivity.this);//����popw����ʱ����͸����
-        final EditText TextView= (EditText) view.findViewById(R.id.editText);
-        TextView.setInputType(InputType.TYPE_CLASS_PHONE);
-        TextView cancel= (TextView) view.findViewById(R.id.cancel);
-        TextView sure= (TextView) view.findViewById(R.id.sure);
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pw.dismiss();
-            }
-        });
-        sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String s = TextView.getText().toString();
-                if(s!=null&&!s.equals("")){
-                    float i = Float.parseFloat(s) ;
-                    float[] i1 = {i};
-                    MyApplication.getInstance().mdbuswritereal(type, i1, stadr, 1);
-//                 getData();
-                }
-                pw.dismiss();
-            }
-        });
-    }
-
-    @Override
+  @Override
     protected void onDestroy() {
         super.onDestroy();
         flag = false;

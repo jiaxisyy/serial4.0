@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import utils.Constants;
 import utils.PopUtils;
-
+import utils.Pupwindow;
 
 
 /**
@@ -39,6 +39,7 @@ public class ParameterActivity extends Activity implements View.OnClickListener,
 
     private TextView para_et_opendelay, para_et_startdelay,momitor_tv_runningtime;
     private Button para_btn_original,para_btn_setting,para_btn_factory;
+    private int[] local,str;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -165,64 +166,19 @@ public class ParameterActivity extends Activity implements View.OnClickListener,
                 finish();
                 break;
             case R.id.para_et_opendelay:
-                showPopWindow(para_et_opendelay,Constants.Define.OP_WORD_D,476);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{476};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.para_et_startdelay:
-                showPopWindow(para_et_startdelay,Constants.Define.OP_WORD_D,478);
+                local=new int[2];
+                v.getLocationInWindow(local);
+                str = new int[]{478};
+                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
-
-
-
         }
     }
-
-
-
-
-    private void showPopWindow( final TextView t, final int type,final int stadr) {
-        View view = LayoutInflater.from(this).inflate(R.layout.ed_dialog,null);
-        final PopupWindow pw = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,false);
-        pw.setFocusable(true);
-        pw.setOutsideTouchable(true);
-        pw.setBackgroundDrawable(new BitmapDrawable());
-        pw.setAnimationStyle(R.style.myanimation);
-        pw.showAtLocation(view, Gravity.CENTER, 0, 0);
-        pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-            @Override
-            public void onDismiss() {
-                PopUtils.setBackgroundAlpha(1.0f, ParameterActivity.this);//����Popw��ʧ����Ϊ͸��
-            }
-        });
-        PopUtils.setBackgroundAlpha(0.3f, ParameterActivity.this);//����popw����ʱ����͸����
-        final EditText editText= (EditText) view.findViewById(R.id.editText);
-        TextView cancel= (TextView) view.findViewById(R.id.cancel);
-        TextView sure= (TextView) view.findViewById(R.id.sure);
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pw.dismiss();
-            }
-        });
-        sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String s = editText.getText().toString();
-
-                if(s!=null&&!s.equals("")){
-                    short sh= Short.valueOf(s);
-                    short[] shr={sh};
-                    MyApplication.getInstance().mdbuswriteword(type, shr, stadr, 1);
-//                 setData();
-                }
-
-                pw.dismiss();
-            }
-        });
-    }
-
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {

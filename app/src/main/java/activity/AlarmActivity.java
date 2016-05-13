@@ -44,8 +44,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
     private LinearLayout alarm_layout_parent;
     private Thread myThread;
     private static boolean flag = true;
-    private int[] local;
-    private int[] str;
+    private int[] local,str;
 
     private Handler handler = new Handler() {
         @Override

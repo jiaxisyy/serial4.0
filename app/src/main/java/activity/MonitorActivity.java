@@ -265,11 +265,8 @@ public class MonitorActivity extends Activity implements View.OnClickListener, V
                 if(event.getAction()==MotionEvent.ACTION_DOWN){
                     btn_flag=true;
                     momitor_btn_stop.setSelected(btn_flag);
-
                     byte[] b = {1};
                     MyApplication.getInstance().mdbuswritebyte(Constants.Define.OP_BIT_M,b,101,1);
-
-
                 }
                 break;
 

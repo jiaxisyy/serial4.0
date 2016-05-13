@@ -1,3 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="D:\ANDROID1\demon\serial4.0\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="D:\ANDROID1\demon\serial4.0\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.3.0_55865f5ead1f0538e5c4101a1d726f7955add7c6.jar" />
+    </item>
+    <item
+        jar="D:\ANDROID1\demon\serial4.0\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="D:\ANDROID1\demon\serial4.0\app\build\intermediates\pre-dexed\debug\internal_impl-23.3.0_e28628be2cd6825538d2731b08bb33857fd9b81f.jar" />
+    </item>
+    <item
+        jar="D:\ANDROID1\demon\serial4.0\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ceec30e2b24231e74a534376b969d06fd5be7d9d">
+        <dex dex="D:\ANDROID1\demon\serial4.0\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_79f6df47e17c0d5e927ab0f32cd1c83ced3f1177.jar" />
+    </item>
+    <item
+        jar="D:\ANDROID1\demon\serial4.0\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="D:\ANDROID1\demon\serial4.0\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.3.0_2047e8553e34ce56ebf5e2c7d61f47f351afa11e.jar" />
+    </item>
+    <item
+        jar="D:\ANDROID1\demon\serial4.0\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="D:\ANDROID1\demon\serial4.0\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-23.3.0_5d66bdeb13c58ef4dcd73e592adb9630dcb64068.jar" />
+    </item>
+    <item
+        jar="D:\Android-SDK\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="D:\ANDROID1\demon\serial4.0\app\build\intermediates\pre-dexed\debug\support-annotations-23.3.0_fed9f9f4739e5c9066ba43b460bda59bbb9e1bde.jar" />
+    </item>
+    <item
+        jar="D:\ANDROID1\demon\serial4.0\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="D:\ANDROID1\demon\serial4.0\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-23.3.0_4c9082e510a54c9b8eb2a1d9526533da2b242a07.jar" />
+    </item>
+    <item
+        jar="D:\ANDROID1\demon\serial4.0\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="bccc3cba91c23c29e575e0a6918331bbed882f79">
+        <dex dex="D:\ANDROID1\demon\serial4.0\app\build\intermediates\pre-dexed\debug\instant-run_f087c1967c0549fe980adec13d5d2568929dda0e.jar" />
+    </item>
+
+</items>

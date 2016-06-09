@@ -5,11 +5,13 @@ package activity;
 import com.hitek.serial.R;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,7 +31,7 @@ import utils.Pupwindow;
  *ģ�������ý���
  * Created by zuheng.lv on 2016/4/26.
  */
-public class AnalogActivity extends Activity implements View.OnClickListener {
+public class AnalogActivity extends android.support.v4.app.Fragment implements View.OnClickListener {
 
 
     private Handler handler = new Handler(){
@@ -135,42 +137,45 @@ public class AnalogActivity extends Activity implements View.OnClickListener {
     private TextView analog_et_oxy_correction,analog_et_flow_correction,analog_et_concentration_correction,analog_et_temp_correction;
     private boolean flag=true;
     private int[] local,str;
+    private View view;
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.analog_layout);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view =inflater.inflate(R.layout.analog_layout,container,false);
         initView();
         initData();
         setData();
         getData();
+        return view;
     }
+
 
     /**�ؼ���ʼ��*/
     public void initView(){
-        analog_et_oxy_original=(TextView)findViewById(R.id.analog_et_oxy_original);
-        analog_et_flow_original=(TextView)findViewById(R.id.analog_et_flow_original);
-        analog_et_concentration_original=(TextView)findViewById(R.id.analog_et_concentration_original);
-        analog_et_temp_original=(TextView)findViewById(R.id.analog_et_temp_original);
+        analog_et_oxy_original=(TextView)view.findViewById(R.id.analog_et_oxy_original);
+        analog_et_flow_original=(TextView)view.findViewById(R.id.analog_et_flow_original);
+        analog_et_concentration_original=(TextView)view.findViewById(R.id.analog_et_concentration_original);
+        analog_et_temp_original=(TextView)view.findViewById(R.id.analog_et_temp_original);
 
-        analog_et_oxy_current=(TextView)findViewById(R.id.analog_et_oxy_current);
-        analog_et_flow_current=(TextView)findViewById(R.id.analog_et_flow_current);
-        analog_et_concentration_current=(TextView)findViewById(R.id.analog_et_concentration_current);
-        analog_et_temp_current=(TextView)findViewById(R.id.analog_et_temp_current);
+        analog_et_oxy_current=(TextView)view.findViewById(R.id.analog_et_oxy_current);
+        analog_et_flow_current=(TextView)view.findViewById(R.id.analog_et_flow_current);
+        analog_et_concentration_current=(TextView)view.findViewById(R.id.analog_et_concentration_current);
+        analog_et_temp_current=(TextView)view.findViewById(R.id.analog_et_temp_current);
 
-        analog_et_oxy_max=(TextView)findViewById(R.id.analog_et_oxy_max);
-        analog_et_flow_max=(TextView)findViewById(R.id.analog_et_flow_max);
-        analog_et_concentration_max=(TextView)findViewById(R.id.analog_et_concentration_max);
-        analog_et_temp_max=(TextView)findViewById(R.id.analog_et_temp_max);
+        analog_et_oxy_max=(TextView)view.findViewById(R.id.analog_et_oxy_max);
+        analog_et_flow_max=(TextView)view.findViewById(R.id.analog_et_flow_max);
+        analog_et_concentration_max=(TextView)view.findViewById(R.id.analog_et_concentration_max);
+        analog_et_temp_max=(TextView)view.findViewById(R.id.analog_et_temp_max);
 
-        analog_et_oxy_min=(TextView)findViewById(R.id.analog_et_oxy_min);
-        analog_et_flow_min=(TextView)findViewById(R.id.analog_et_flow_min);
-        analog_et_concentration_min=(TextView)findViewById(R.id.analog_et_concentration_min);
-        analog_et_temp_min=(TextView)findViewById(R.id.analog_et_temp_min);
+        analog_et_oxy_min=(TextView)view.findViewById(R.id.analog_et_oxy_min);
+        analog_et_flow_min=(TextView)view.findViewById(R.id.analog_et_flow_min);
+        analog_et_concentration_min=(TextView)view.findViewById(R.id.analog_et_concentration_min);
+        analog_et_temp_min=(TextView)view.findViewById(R.id.analog_et_temp_min);
 
-        analog_et_oxy_correction=(TextView)findViewById(R.id.analog_et_oxy_correction);
-        analog_et_flow_correction=(TextView)findViewById(R.id.analog_et_flow_correction);
-        analog_et_concentration_correction=(TextView)findViewById(R.id.analog_et_concentration_correction);
-        analog_et_temp_correction=(TextView)findViewById(R.id.analog_et_temp_correction);
+        analog_et_oxy_correction=(TextView)view.findViewById(R.id.analog_et_oxy_correction);
+        analog_et_flow_correction=(TextView)view.findViewById(R.id.analog_et_flow_correction);
+        analog_et_concentration_correction=(TextView)view.findViewById(R.id.analog_et_concentration_correction);
+        analog_et_temp_correction=(TextView)view.findViewById(R.id.analog_et_temp_correction);
 
         analog_et_oxy_max.setOnClickListener(this);
         analog_et_flow_max.setOnClickListener(this);
@@ -187,7 +192,7 @@ public class AnalogActivity extends Activity implements View.OnClickListener {
         analog_et_concentration_correction.setOnClickListener(this);
         analog_et_temp_correction.setOnClickListener(this);
 
-        analog_btn_back = (Button) findViewById(R.id.analog_btn_back);
+        analog_btn_back = (Button) view.findViewById(R.id.analog_btn_back);
         analog_btn_back.setOnClickListener(this);
     }
     /**���ݳ�ʼ��*/
@@ -201,33 +206,33 @@ public class AnalogActivity extends Activity implements View.OnClickListener {
                 // TODO Auto-generated method stub
                 while(true){
                     try {
-                        //����ѹ�����ֵ
+                        //压力最大值
                        float[]d200 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 200, 1);
 
-                        //����ѹ����Сֵ
+                        //压力最小值
                         float[]d204 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 204, 1);
-                        //����ѹ������ֵ
+                        // 压力修正值
                         float[]d208 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 208, 1);
 
-                        //�����������ֵ
+                        //流量最大值
                         float[] d216 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 216, 1);
-                        //����������Сֵ
+                        //流量最小值
                         float[] d220 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 220, 1);
-                        //������������ֵ
+                        //流量修正值
                         float[] d224 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 224, 1);
 
-                        //����Ũ�����ֵ
+                        //浓度最大值
                         float[] d232 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 232, 1);
-                        //����Ũ����Сֵ
+                        //浓度最小值
                         float[] d236 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 236, 1);
-                        //����Ũ������ֵ
+                        //浓度修正值
                         float[] d240 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 240, 1);
 
-                        //�����¶����ֵ
+                        //温度最大值
                         float[] d248 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 248, 1);
-                        //�����¶���Сֵ
+                        //温度最小值
                         float[] d252 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 252, 1);
-                        //�����¶�����ֵ
+                        //温度修正值
                         float[] d256 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 256, 1);
 
                         Bundle bundle = new Bundle();
@@ -274,25 +279,25 @@ public class AnalogActivity extends Activity implements View.OnClickListener {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    //����ѹ��ԭʼֵ
+                    //氧气压力原始值
                     short[] d10 = MyApplication.getInstance().mdbusreadword(Constants.Define.OP_WORD_D, 10, 1);
-                    //��������ԭʼֵ
+                    //氧气流量原始值
                     short[] d12 = MyApplication.getInstance().mdbusreadword(Constants.Define.OP_WORD_D, 12, 1);
-                    //����Ũ��  ԭʼֵ
+                    // 氧气浓度原始值
                     short[] d14 = MyApplication.getInstance().mdbusreadword(Constants.Define.OP_WORD_D, 14, 1);
-                    //�����¶�ԭʼֵ
+                    //氧气温度原始值
                     short[] d16 = MyApplication.getInstance().mdbusreadword(Constants.Define.OP_WORD_D, 16, 1);
 
-                    //����ѹ����ǰֵ
+                    //氧气压力当前值
                     float[] d212 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 212, 1);
 
-                    //����������ǰֵ
+                    //当前值流量
                     float[] d228 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 228, 1);
 
-                    //����Ũ�ȵ�ǰֵ
+                    //当前值流量
                     float[] d244 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 244, 1);
 
-                    //�����¶ȵ�ǰֵ
+                    //温度当前值
                     float[] d260 = MyApplication.getInstance().mdbusreadreal(Constants.Define.OP_REAL_D, 260, 1);
                     Bundle bundle = new Bundle();
                     bundle.putShortArray("d10", d10);
@@ -322,86 +327,89 @@ public class AnalogActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.analog_btn_back:
-                Intent intent = new Intent(AnalogActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(AnalogActivity.this,MainActivity.class);
+//                startActivity(intent);
+//                finish();
                 break;
             case R.id.analog_et_oxy_max:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{200};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_flow_max:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{216};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_concentration_max:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{232};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_temp_max:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{248};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_oxy_min:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{204};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_flow_min:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{220};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_concentration_min:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{236};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_temp_min:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{252};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id. analog_et_oxy_correction:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{208};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_flow_correction:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{224};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_concentration_correction:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{240};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.analog_et_temp_correction:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{256};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
         }
     }
   @Override
-    protected void onDestroy() {
+
+
+
+  public void onDestroy() {
         super.onDestroy();
         flag = false;
     }

@@ -9,11 +9,13 @@ import com.hitek.serial.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,7 +37,7 @@ import utils.Pupwindow;
  * �������ý���
  * Created by zuheng.lv on 2016/4/26.
  */
-public class ParameterActivity extends Activity implements View.OnClickListener, OnTouchListener{
+public class ParameterActivity extends android.support.v4.app.Fragment implements View.OnClickListener, OnTouchListener{
 
     private TextView para_et_opendelay, para_et_startdelay,momitor_tv_runningtime;
     private Button para_btn_original,para_btn_setting,para_btn_factory;
@@ -63,15 +65,18 @@ public class ParameterActivity extends Activity implements View.OnClickListener,
     };
 
     private Button para_btn_back;
+    private View view;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.parameter_layout);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.parameter_layout,container,false);
         initView();
         initData();
         setData();
+        return view;
     }
+
 
 
     /**
@@ -80,20 +85,20 @@ public class ParameterActivity extends Activity implements View.OnClickListener,
     public void initView() {
 
         //A������ʱ��
-        momitor_tv_runningtime = (TextView) findViewById(R.id.momitor_tv_runningtime);
+        momitor_tv_runningtime = (TextView) view.findViewById(R.id.momitor_tv_runningtime);
 
-        para_btn_back = (Button) findViewById(R.id.para_btn_back);
-        para_btn_original = (Button) findViewById(R.id.para_btn_original);
-        para_btn_factory = (Button) findViewById(R.id.para_btn_factory);
-        para_btn_setting = (Button) findViewById(R.id.para_btn_setting);
+        para_btn_back = (Button) view.findViewById(R.id.para_btn_back);
+        para_btn_original = (Button) view.findViewById(R.id.para_btn_original);
+        para_btn_factory = (Button) view.findViewById(R.id.para_btn_factory);
+        para_btn_setting = (Button) view.findViewById(R.id.para_btn_setting);
         para_btn_back.setOnClickListener(this);
         para_btn_original.setOnTouchListener(this);
         para_btn_factory.setOnTouchListener(this);
         para_btn_setting.setOnTouchListener(this);
         //��ѹ��������ʱ
-        para_et_opendelay = (TextView) findViewById(R.id.para_et_opendelay);
+        para_et_opendelay = (TextView) view.findViewById(R.id.para_et_opendelay);
         //����������ʱ
-        para_et_startdelay = (TextView) findViewById(R.id.para_et_startdelay);
+        para_et_startdelay = (TextView) view.findViewById(R.id.para_et_startdelay);
         para_et_opendelay.setOnClickListener(this);
         para_et_startdelay.setOnClickListener(this);
     }
@@ -161,21 +166,21 @@ public class ParameterActivity extends Activity implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.para_btn_back:
-                Intent intent = new Intent(ParameterActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(ParameterActivity.this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
                 break;
             case R.id.para_et_opendelay:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{476};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.para_et_startdelay:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{478};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
         }
     }
@@ -218,7 +223,6 @@ public class ParameterActivity extends Activity implements View.OnClickListener,
                     };
                     Timer time = new Timer();
                     time.schedule(timerTask, 500);
-
                 }
                 break;
             case R.id.para_btn_factory:

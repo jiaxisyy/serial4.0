@@ -9,15 +9,20 @@ import java.util.logging.Logger;
 import com.hitek.serial.R;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -27,7 +32,7 @@ import utils.Constants;
  * qa���м��ҳ��
  * Created by zuheng.lv on 2016/4/26.
  */
-public class MonitorActivity extends Activity implements View.OnClickListener, View.OnTouchListener {
+public class MonitorActivity extends android.support.v4.app.Fragment implements View.OnClickListener, View.OnTouchListener {
 
 
     private Handler handler = new Handler() {
@@ -69,37 +74,39 @@ public class MonitorActivity extends Activity implements View.OnClickListener, V
     private TextView momitor_tv_pressure, momitor_tv_totalflow, momitor_tv_flow, momitor_tv_concentration;
     private Button momitor_btn_machine_a,momitor_btn_start,momitor_btn_stop;
     private Button monitor_btn_back;
+    private View view;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.monitor_layout);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.monitor_layout,container,false);
         initView();
         initData();
         setData();
+        return view;
     }
+
 
 
     /**
      * �ؼ���ʼ��
      */
     public void initView() {
-        monitor_btn_back = (Button) findViewById(R.id.monitor_btn_back);
+        monitor_btn_back = (Button) view.findViewById(R.id.monitor_btn_back);
         monitor_btn_back.setOnClickListener(this);
         //����ѹ��
-        momitor_tv_pressure = (TextView) findViewById(R.id.momitor_tv_pressure);
+        momitor_tv_pressure = (TextView) view.findViewById(R.id.momitor_tv_pressure);
         //����ͳ��
-        momitor_tv_totalflow = (TextView) findViewById(R.id.momitor_tv_totalflow);
+        momitor_tv_totalflow = (TextView) view.findViewById(R.id.momitor_tv_totalflow);
         //��������
-        momitor_tv_flow = (TextView) findViewById(R.id.momitor_tv_flow);
+        momitor_tv_flow = (TextView) view.findViewById(R.id.momitor_tv_flow);
         // ����Ũ��
-        momitor_tv_concentration = (TextView) findViewById(R.id.momitor_tv_concentration);
+        momitor_tv_concentration = (TextView) view.findViewById(R.id.momitor_tv_concentration);
 
 
-        momitor_btn_machine_a = (Button) findViewById(R.id.momitor_btn_machine_a);
-        momitor_btn_start= (Button) findViewById(R.id.momitor_btn_start);
-        momitor_btn_stop = (Button) findViewById(R.id.momitor_btn_stop);
+        momitor_btn_machine_a = (Button) view.findViewById(R.id.momitor_btn_machine_a);
+        momitor_btn_start= (Button) view.findViewById(R.id.momitor_btn_start);
+        momitor_btn_stop = (Button) view.findViewById(R.id.momitor_btn_stop);
         momitor_btn_stop.setOnTouchListener(this);
         momitor_btn_start.setOnTouchListener(this);
     }
@@ -184,31 +191,31 @@ public class MonitorActivity extends Activity implements View.OnClickListener, V
         switch (v.getId()) {
             /**���ذ���*/
             case R.id.monitor_btn_back:
-                Intent intent = new Intent(MonitorActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(MonitorActivity.this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
                 break;
         }
     }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        view.getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
 
         flag=false;

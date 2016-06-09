@@ -1,24 +1,26 @@
 package activity;
-
-
-
 import com.hitek.serial.R;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import utils.Constants;
+import utils.ReadAndWrite;
 
 /**
  * A机状态界面
  * Created by zuheng.lv on 2016/4/26.
  */
-public class AMachineStatusActivity extends Activity implements View.OnClickListener {
+public class AMachineStatusActivity extends android.support.v4.app.Fragment implements View.OnClickListener {
 
 
     private Handler handler = new Handler(){
@@ -44,7 +46,6 @@ public class AMachineStatusActivity extends Activity implements View.OnClickList
                             stataus_btn_valve12.setSelected(msg.getData().getBoolean("y1"));
                             break;
                     }
-
                     break;
             }
         }
@@ -53,81 +54,75 @@ public class AMachineStatusActivity extends Activity implements View.OnClickList
     private Button stataus_btn_valve1,stataus_btn_valve2,stataus_btn_valve3,stataus_btn_valve4,stataus_btn_valve5,stataus_btn_valve6;
     private Button stataus_btn_valve7,stataus_btn_valve8,stataus_btn_valve9,stataus_btn_valve10,stataus_btn_valve11,stataus_btn_valve12;
     boolean flag =true;
+    private View view;
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.amachinestatus_layout);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.amachinestatus_layout,container,false);
         initView();
         initData();
         setData();
+        return view;
     }
 
     /**控件初始化*/
     public void initView(){
-        stataus_btn_valve1 = (Button) findViewById(R.id.stataus_btn_valve1);
-        stataus_btn_valve2 = (Button) findViewById(R.id.stataus_btn_valve2);
-        stataus_btn_valve3 = (Button) findViewById(R.id.stataus_btn_valve3);
-        stataus_btn_valve4 = (Button) findViewById(R.id.stataus_btn_valve4);
-        stataus_btn_valve5 = (Button) findViewById(R.id.stataus_btn_valve5);
-        stataus_btn_valve6 = (Button) findViewById(R.id.stataus_btn_valve6);
-        stataus_btn_valve7 = (Button) findViewById(R.id.stataus_btn_valve7);
-        stataus_btn_valve8 = (Button) findViewById(R.id.stataus_btn_valve8);
-        stataus_btn_valve9 = (Button) findViewById(R.id.stataus_btn_valve9);
-        stataus_btn_valve10 = (Button) findViewById(R.id.stataus_btn_valve10);
-        stataus_btn_valve11 = (Button) findViewById(R.id.stataus_btn_valve11);
-        stataus_btn_valve12 = (Button) findViewById(R.id.stataus_btn_valve12);
-        status_btn_back = (Button) findViewById(R.id.status_btn_back);
+        stataus_btn_valve1 = (Button) view.findViewById(R.id.stataus_btn_valve1);
+        stataus_btn_valve2 = (Button) view.findViewById(R.id.stataus_btn_valve2);
+        stataus_btn_valve3 = (Button) view.findViewById(R.id.stataus_btn_valve3);
+        stataus_btn_valve4 = (Button) view.findViewById(R.id.stataus_btn_valve4);
+        stataus_btn_valve5 = (Button) view.findViewById(R.id.stataus_btn_valve5);
+        stataus_btn_valve6 = (Button) view.findViewById(R.id.stataus_btn_valve6);
+        stataus_btn_valve7 = (Button) view.findViewById(R.id.stataus_btn_valve7);
+        stataus_btn_valve8 = (Button) view.findViewById(R.id.stataus_btn_valve8);
+        stataus_btn_valve9 = (Button) view.findViewById(R.id.stataus_btn_valve9);
+        stataus_btn_valve10 = (Button) view.findViewById(R.id.stataus_btn_valve10);
+        stataus_btn_valve11 = (Button) view.findViewById(R.id.stataus_btn_valve11);
+        stataus_btn_valve12 = (Button) view.findViewById(R.id.stataus_btn_valve12);
+        status_btn_back = (Button) view.findViewById(R.id.status_btn_back);
         status_btn_back.setOnClickListener(this);
-
     }
     /**数据初始化*/
-    public void initData(){
-
-
-    }
+    public void initData(){}
 
     /**数据获取*/
-    public void getData(){
-
-
-    }
+    public void getData(){}
     /**数据跟新*/
     public void setData(){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 /**这里写数据获取与数据处理函数*/
-
-
                 while (flag) {
                     try {
                         Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    //A������
+                    //A进气阀
                     byte[] y2 = MyApplication.getInstance().mdbusreadbyte(Constants.Define.OP_BIT_Y, 2, 1);
-                    //B������
+                    //B进气阀
                     byte[] y3 = MyApplication.getInstance().mdbusreadbyte(Constants.Define.OP_BIT_Y, 3, 1);
-                    //A������
+                    //A排气阀
                     byte[] y4 = MyApplication.getInstance().mdbusreadbyte(Constants.Define.OP_BIT_Y, 4, 1);
-                    //B������
+                    //B排气阀
                     byte[] y5 = MyApplication.getInstance().mdbusreadbyte(Constants.Define.OP_BIT_Y, 5, 1);
-                    //A������
+                    //A产氧阀
                     byte[] y6 = MyApplication.getInstance().mdbusreadbyte(Constants.Define.OP_BIT_Y, 6, 1);
-                    //B������
+                    //B产氧阀
                     byte[] y7 = MyApplication.getInstance().mdbusreadbyte(Constants.Define.OP_BIT_Y, 7, 1);
-                    //A��ѹ��
+                    //A均压阀
                     byte[] y10 = MyApplication.getInstance().mdbusreadbyte(Constants.Define.OP_BIT_Y, 8, 1);
-                    //B��ѹ��
+                    //B均压阀
                     byte[] y11 = MyApplication.getInstance().mdbusreadbyte(Constants.Define.OP_BIT_Y, 9, 1);
-                    //A��ϴ��
+                    //A清洗阀
                     byte[] y12 = MyApplication.getInstance().mdbusreadbyte(Constants.Define.OP_BIT_Y, 10, 1);
-                    //B��ϴ��
+                    //B清洗阀
                     byte[] y13 = MyApplication.getInstance().mdbusreadbyte(Constants.Define.OP_BIT_Y, 11, 1);
-                    //��ѹ��
+                    //空压机
                     byte[] y0 = MyApplication.getInstance().mdbusreadbyte(Constants.Define.OP_BIT_Y, 0, 1);
-                    //��ɻ�
+                    //冷干机
                     byte[] y1 = MyApplication.getInstance().mdbusreadbyte(Constants.Define.OP_BIT_Y, 1, 1);
 
                     Bundle bundle = new Bundle();
@@ -199,22 +194,19 @@ public class AMachineStatusActivity extends Activity implements View.OnClickList
             }
         }).start();
     }
-
-
     /**�����������*/
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.status_btn_back:
-                Intent intent = new Intent(AMachineStatusActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(AMachineStatusActivity.this,MainActivity.class);
+//                startActivity(intent);
+//                finish();
                 break;
         }
     }
-
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         flag = false;
     }

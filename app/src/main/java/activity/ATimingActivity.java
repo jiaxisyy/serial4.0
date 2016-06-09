@@ -9,11 +9,13 @@ import com.hitek.serial.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -34,7 +36,7 @@ import utils.Pupwindow;
  * A��ʱ�����ý���
  * Created by zuheng.lv on 2016/4/26.
  */
-public class ATimingActivity extends Activity implements View.OnClickListener {
+public class ATimingActivity extends android.support.v4.app.Fragment implements View.OnClickListener {
 
     private TextView ATiming_1, ATiming_2, ATiming_3, ATiming_4, ATiming_5, ATiming_6, ATiming_7, ATiming_8, ATiming_9, ATiming_10, ATiming_11, ATiming_12, ATiming_13;
     private int[] local,str;
@@ -105,35 +107,36 @@ public class ATimingActivity extends Activity implements View.OnClickListener {
     };
 
     private Button time_btn_back;
-
+    private View view;
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.atimming_layout);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.atimming_layout,container,false);
         initView();
         initData();
         setData();
+        return view;
     }
 
     /**
      * �ؼ���ʼ��
      */
     public void initView() {
-        time_btn_back = (Button) findViewById(R.id.time_btn_back);
+        time_btn_back = (Button) view.findViewById(R.id.time_btn_back);
         time_btn_back.setOnClickListener(this);
-        ATiming_1 = (TextView) findViewById(R.id.ATiming_1);
-        ATiming_2 = (TextView) findViewById(R.id.ATiming_2);
-        ATiming_3 = (TextView) findViewById(R.id.ATiming_3);
-        ATiming_4 = (TextView) findViewById(R.id.ATiming_4);
-        ATiming_5 = (TextView) findViewById(R.id.ATiming_5);
-        ATiming_6 = (TextView) findViewById(R.id.ATiming_6);
-        ATiming_7 = (TextView) findViewById(R.id.ATiming_7);
-        ATiming_8 = (TextView) findViewById(R.id.ATiming_8);
-        ATiming_9 = (TextView) findViewById(R.id.ATiming_9);
-        ATiming_10 = (TextView) findViewById(R.id.ATiming_10);
-        ATiming_11 = (TextView) findViewById(R.id.ATiming_11);
-        ATiming_12 = (TextView) findViewById(R.id.ATiming_12);
-        ATiming_13 = (TextView) findViewById(R.id.ATiming_13);
+        ATiming_1 = (TextView) view.findViewById(R.id.ATiming_1);
+        ATiming_2 = (TextView) view.findViewById(R.id.ATiming_2);
+        ATiming_3 = (TextView) view.findViewById(R.id.ATiming_3);
+        ATiming_4 = (TextView) view.findViewById(R.id.ATiming_4);
+        ATiming_5 = (TextView) view.findViewById(R.id.ATiming_5);
+        ATiming_6 = (TextView) view.findViewById(R.id.ATiming_6);
+        ATiming_7 = (TextView) view.findViewById(R.id.ATiming_7);
+        ATiming_8 = (TextView) view.findViewById(R.id.ATiming_8);
+        ATiming_9 = (TextView) view.findViewById(R.id.ATiming_9);
+        ATiming_10 = (TextView) view.findViewById(R.id.ATiming_10);
+        ATiming_11 = (TextView) view.findViewById(R.id.ATiming_11);
+        ATiming_12 = (TextView) view.findViewById(R.id.ATiming_12);
+        ATiming_13 = (TextView) view.findViewById(R.id.ATiming_13);
         ATiming_1.setOnClickListener(this);
         ATiming_2.setOnClickListener(this);
         ATiming_3.setOnClickListener(this);
@@ -181,6 +184,7 @@ public class ATimingActivity extends Activity implements View.OnClickListener {
             public void run() {
                 while(true){
                     try {
+
                         /**����д���ݻ�ȡ�����ݴ�����*/
                         short[] d400 =	MyApplication.getInstance().mdbusreadword(Constants.Define.OP_WORD_D, 400, 1);
                         short[] d402 =	MyApplication.getInstance().mdbusreadword(Constants.Define.OP_WORD_D, 402, 1);
@@ -195,7 +199,6 @@ public class ATimingActivity extends Activity implements View.OnClickListener {
                         short[] d420 =	MyApplication.getInstance().mdbusreadword(Constants.Define.OP_WORD_D, 420, 1);
                         short[] d422 =	MyApplication.getInstance().mdbusreadword(Constants.Define.OP_WORD_D, 422, 1);
                         short[] d424 =	MyApplication.getInstance().mdbusreadword(Constants.Define.OP_WORD_D, 424, 1);
-
                         Bundle bundle = new Bundle();
                         bundle.putShort("d400", d400[0]);
                         bundle.putShort("d402", d402[0]);
@@ -210,12 +213,13 @@ public class ATimingActivity extends Activity implements View.OnClickListener {
                         bundle.putShort("d420", d420[0]);
                         bundle.putShort("d422", d422[0]);
                         bundle.putShort("d424", d424[0]);
+
                         Message msg = new Message();
                         msg.setData(bundle);
                         msg.what = 1;
                         handler.sendMessage(msg);
 
-                        Thread.sleep(3000);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -231,87 +235,87 @@ public class ATimingActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.time_btn_back:
-                Intent intent = new Intent(ATimingActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(ATimingActivity.this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
                 break;
             case R.id.ATiming_1:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{400};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_2:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{402};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_3:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{404};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_4:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{406};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_5:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{408};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_6:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{410};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_7:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{412};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_8:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{414};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_9:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{416};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_10:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{418};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_11:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{420};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_12:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{422};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
             case R.id.ATiming_13:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{424};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_WORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_WORD_D,str);
                 break;
         }
     }

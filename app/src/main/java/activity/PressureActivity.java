@@ -4,6 +4,7 @@ package activity;
 
 import com.hitek.serial.R;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -34,7 +36,7 @@ import utils.ReadAndWrite;
  * ѹ������ҳ��
  * Created by zuheng.lv on 2016/4/26.
  */
-public class PressureActivity extends Activity implements View.OnClickListener {
+public class PressureActivity extends android.support.v4.app.Fragment implements View.OnClickListener {
 
 
     private Handler handler = new Handler(){
@@ -70,23 +72,25 @@ public class PressureActivity extends Activity implements View.OnClickListener {
     private  Thread myThread;
     private int[] local;
     private int[] str;
+    private View view;
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.pressure_layout);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.pressure_layout,container,false);
         initView();
         initData();
         setData();
         myThread.start();
+        return view;
     }
-
     /**�ؼ���ʼ��*/
     public void initView(){
-        pressure_et_max1 = (TextView)findViewById(R.id.pressure_et_max1);
-        pressure_et_max2 = (TextView)findViewById(R.id.pressure_et_max2);
-        pressure_et_min1 = (TextView)findViewById(R.id.pressure_et_min1);
-        pressure_et_min2 = (TextView)findViewById(R.id.pressure_et_min2);
-        pressure_btn_back = (Button) findViewById(R.id.pressure_btn_back);
+        pressure_et_max1 = (TextView)view.findViewById(R.id.pressure_et_max1);
+        pressure_et_max2 = (TextView)view.findViewById(R.id.pressure_et_max2);
+        pressure_et_min1 = (TextView)view.findViewById(R.id.pressure_et_min1);
+        pressure_et_min2 = (TextView)view.findViewById(R.id.pressure_et_min2);
+        pressure_btn_back = (Button) view.findViewById(R.id.pressure_btn_back);
         pressure_et_max1.setOnClickListener(this);
         pressure_et_max2.setOnClickListener(this);
         pressure_et_min1.setOnClickListener(this);
@@ -140,38 +144,38 @@ public class PressureActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.pressure_btn_back:
-                Intent intent = new Intent(PressureActivity.this,MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(PressureActivity.this,MainActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.pressure_et_max1:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{330};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.pressure_et_max2:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{338};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.pressure_et_min1:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{334};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.pressure_et_min2:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{342};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
         }
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         flag = false;
     }

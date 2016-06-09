@@ -5,15 +5,11 @@ package activity;
 
 import com.hitek.serial.R;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.drawable.BitmapDrawable;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -38,14 +34,14 @@ import utils.ReadAndWrite;
  * 报警设置界面
  * Created by zuheng.lv on 2016/4/26.
  */
-public class AlarmActivity extends Activity implements View.OnClickListener {
+public class AlarmActivity extends android.support.v4.app.Fragment implements View.OnClickListener {
     private TextView alarm_et_oxy_max, alarm_et_oxy_min, alarm_et_oxy_flow, alarm_et_oxy_concentration, alarm_et_temp_max, alarm_et_temp_min;
     private Button alarm_btn_back;
     private LinearLayout alarm_layout_parent;
     private Thread myThread;
     private static boolean flag = true;
     private int[] local,str;
-
+    private View view;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -76,34 +72,35 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
         }
     };
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.alarm_layout);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+         view  = inflater.inflate(R.layout.alarm_layout,container,false);
         initView();
         initData();
         setData();
-
+        return view;
     }
+
 
     /**
      * 控件初始化
      */
     public void initView() {
         //氧气压力上限
-        alarm_et_oxy_max = (TextView) findViewById(R.id.alarm_et_oxy_max);
+        alarm_et_oxy_max = (TextView) view.findViewById(R.id.alarm_et_oxy_max);
         // 氧气压力下限
-        alarm_et_oxy_min = (TextView) findViewById(R.id.alarm_et_oxy_min);
+        alarm_et_oxy_min = (TextView) view.findViewById(R.id.alarm_et_oxy_min);
         //氧气流量上限
-        alarm_et_oxy_flow = (TextView) findViewById(R.id.alarm_et_oxy_flow);
+        alarm_et_oxy_flow = (TextView) view.findViewById(R.id.alarm_et_oxy_flow);
         //氧气浓度下限
-        alarm_et_oxy_concentration = (TextView) findViewById(R.id.alarm_et_oxy_concentration);
+        alarm_et_oxy_concentration = (TextView) view.findViewById(R.id.alarm_et_oxy_concentration);
         //露点/温度上限
-        alarm_et_temp_max = (TextView) findViewById(R.id.alarm_et_temp_max);
+        alarm_et_temp_max = (TextView) view.findViewById(R.id.alarm_et_temp_max);
         //露点/温度上下限
 
-        alarm_et_temp_min = (TextView) findViewById(R.id.alarm_et_temp_min);
-        alarm_btn_back=(Button) findViewById(R.id.alarm_btn_back);
+        alarm_et_temp_min = (TextView) view.findViewById(R.id.alarm_et_temp_min);
+        alarm_btn_back=(Button) view.findViewById(R.id.alarm_btn_back);
         alarm_btn_back.setOnClickListener(this);
         alarm_et_oxy_min.setOnClickListener(this);
         alarm_et_oxy_flow.setOnClickListener(this);
@@ -158,49 +155,49 @@ public class AlarmActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.alarm_btn_back:
-                startActivity(new Intent(AlarmActivity.this,MainActivity.class));
-                finish();
+//                startActivity(new Intent(AlarmActivity.this,MainActivity.class));
+//                finish();
                 break;
             case R.id.alarm_et_oxy_max:
                 local=new int[2];
                 v.getLocationInWindow(local);
                  str = new int[]{280};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.alarm_et_oxy_min:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{284};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.alarm_et_oxy_flow:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{296};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.alarm_et_oxy_concentration:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{300};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.alarm_et_temp_max:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{304};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
             case R.id.alarm_et_temp_min:
                 local=new int[2];
                 v.getLocationInWindow(local);
                 str = new int[]{308};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_REAL_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_REAL_D,str);
                 break;
         }
     }
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         flag = false;
     }

@@ -4,16 +4,19 @@ package activity;
 
 import com.hitek.serial.R;
 
+import android.app.Service;
 import android.content.Intent;
 import android.media.tv.TvContract.Channels.Logo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import bean.Services;
 
 
 /**
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
         initView();
+//        startService(new Intent(this,Services.class));
     }
 
 
@@ -129,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		case R.id.logo_test:
 			flag=flag+3;
 			if(flag>=8){
-		    	intent = new Intent(MainActivity.this,TestActivity.class);
+//		    	intent = new Intent(MainActivity.this,TestActivity.class);
 	               startActivity(intent);
 	               flag=0;
 			}

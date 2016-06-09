@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.hitek.serial"
+        applicationId "cn.techray.tablet.controller"
         minSdkVersion 11
         targetSdkVersion 21
 
@@ -30,4 +30,6 @@ android {
 dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:gridlayout-v7:23.3.0'
+    compile 'com.android.support:recyclerview-v7:23.3.0'
 }

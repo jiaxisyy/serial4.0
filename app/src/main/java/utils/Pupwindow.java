@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,7 @@ public class Pupwindow extends Activity implements View.OnClickListener {
         if(popupWindow.isShowing()){
             popupWindow.dismiss();
         }
-        popupWindow.setFocusable(false);
+        popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true);
         int[] location = new int[2];
         view.getLocationOnScreen(location);

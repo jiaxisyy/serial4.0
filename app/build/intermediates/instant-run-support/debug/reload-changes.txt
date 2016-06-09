@@ -1,0 +1,10 @@
+CHANGED,D:\ANDROID1\demon\serial4.0\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\android\tools\fd\runtime\AppPatchesLoaderImpl.class
+CHANGED,D:\ANDROID1\demon\serial4.0\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\activity\testActivity2$override.class
+CHANGED,D:\ANDROID1\demon\serial4.0\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hitek\serial\R$id$override.class
+CHANGED,D:\ANDROID1\demon\serial4.0\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hitek\serial\R$mipmap$override.class
+CHANGED,D:\ANDROID1\demon\serial4.0\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hitek\serial\R$integer$override.class
+CHANGED,D:\ANDROID1\demon\serial4.0\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hitek\serial\R$layout$override.class
+CHANGED,D:\ANDROID1\demon\serial4.0\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hitek\serial\R$menu$override.class
+CHANGED,D:\ANDROID1\demon\serial4.0\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hitek\serial\R$styleable$override.class
+CHANGED,D:\ANDROID1\demon\serial4.0\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hitek\serial\R$style$override.class
+CHANGED,D:\ANDROID1\demon\serial4.0\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\hitek\serial\R$string$override.class

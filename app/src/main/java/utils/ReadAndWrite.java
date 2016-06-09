@@ -129,7 +129,6 @@ public class ReadAndWrite {
     }
 
     public static void WriteJni(int type, int[] str, String[] input){
-
         switch (type){
             case Constants.Define.OP_BIT_X:
                 for(int i =0;i<str.length;i++){

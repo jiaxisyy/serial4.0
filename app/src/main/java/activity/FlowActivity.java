@@ -9,11 +9,13 @@ import com.hitek.serial.R;
 
 import android.R.integer;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.text.format.Time;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,7 +36,7 @@ import utils.Pupwindow;
  * ����ҳ��
  * Created by zuheng.lv on 2016/4/26.
  */
-public class FlowActivity extends Activity implements View.OnClickListener, View.OnTouchListener {
+public class FlowActivity extends android.support.v4.app.Fragment implements View.OnClickListener, View.OnTouchListener {
 
 
     private Handler handler = new Handler(){
@@ -53,7 +55,6 @@ public class FlowActivity extends Activity implements View.OnClickListener, View
                     break;
                 case 2:
 
-
                     break;
 
             }
@@ -64,23 +65,26 @@ public class FlowActivity extends Activity implements View.OnClickListener, View
     private TextView flow_tv_totalflow;
     private TextView flow_et_totalflow_correct;
     private boolean flag = true;
+    private View view;
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.flow_layout);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.flow_layout,container,false);
         initView();
         initData();
         setData();
         getData();
+        return view;
     }
 
     /**�ؼ���ʼ��*/
     public void initView(){
-        flow_tv_totalflow= (TextView)findViewById(R.id.flow_tv_totalflow);
-        flow_et_totalflow_correct = (TextView)findViewById(R.id.flow_et_totalflow_correct);
-        flow_btn_confirm =(Button)findViewById(R.id.flow_btn_confirm);
-        flow_btn_clean = (Button)findViewById(R.id.flow_btn_clean);
-        flow_btn_back = (Button) findViewById(R.id.flow_btn_back);
+        flow_tv_totalflow= (TextView)view.findViewById(R.id.flow_tv_totalflow);
+        flow_et_totalflow_correct = (TextView)view.findViewById(R.id.flow_et_totalflow_correct);
+        flow_btn_confirm =(Button)view.findViewById(R.id.flow_btn_confirm);
+        flow_btn_clean = (Button)view.findViewById(R.id.flow_btn_clean);
+        flow_btn_back = (Button) view.findViewById(R.id.flow_btn_back);
         flow_et_totalflow_correct.setOnClickListener(this);
         flow_btn_back.setOnClickListener(this);
         flow_btn_clean.setOnClickListener(this);
@@ -136,14 +140,14 @@ public class FlowActivity extends Activity implements View.OnClickListener, View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.flow_btn_back:
-                Intent intent = new Intent(FlowActivity.this, MainActivity.class);
-                startActivity(intent);
-                break;
+//                Intent intent = new Intent(FlowActivity.this, MainActivity.class);
+//                startActivity(intent);
+//                break;
             case R.id.flow_et_totalflow_correct:
                int[] local=new int[2];
                 v.getLocationInWindow(local);
                 int[] str = {272};
-                new Pupwindow(this,v,local[0],local[1],Constants.Define.OP_DWORD_D,str);
+                new Pupwindow(view.getContext(),v,local[0],local[1],Constants.Define.OP_DWORD_D,str);
                 break;
         }
     }
@@ -189,7 +193,7 @@ public class FlowActivity extends Activity implements View.OnClickListener, View
         return false;
     }
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         flag=false;
     }

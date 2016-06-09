@@ -4,41 +4,29 @@
     api-level="19"
     density="ldpi"
     format="7"
-    timestamp="1320392883368334" >
+    timestamp="343676344685932" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="422" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="104" />
     <task
         name="verifier"
-        duration="0" />
+        duration="21" />
 
     <artifact
-        location="D:\ANDROID1\demon\serial4.0\app\build\intermediates\res\resources-debug.ap_"
-        type="RESOURCES" />
+        location="D:\ANDROID1\demon\serial4.0\app\build\outputs\apk\app-debug.apk"
+        type="MAIN" />
 
-    <build timestamp="1318938375637121" >
+    <build timestamp="343676344685932" >
         <artifact
             location="D:\ANDROID1\demon\serial4.0\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
-    </build>
-    <build
-        timestamp="1320346844825761"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="D:\ANDROID1\demon\serial4.0\app\build\intermediates\builds\debug\1320346844825761\classes.dex"
-            type="RELOAD_DEX" />
-    </build>
-    <build timestamp="1320392883368334" >
-        <artifact
-            location="D:\ANDROID1\demon\serial4.0\app\build\intermediates\res\resources-debug.ap_"
-            type="RESOURCES" />
     </build>
 
 </instant-run>

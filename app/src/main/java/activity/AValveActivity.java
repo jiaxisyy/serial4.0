@@ -9,8 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import utils.Constants;
@@ -20,7 +23,7 @@ import utils.Constants;
  * A机阀门检验页面
  * Created by zuheng.lv on 2016/4/26.
  */
-public class AValveActivity extends Activity implements View.OnClickListener, View.OnTouchListener  {
+public class AValveActivity extends android.support.v4.app.Fragment implements View.OnClickListener, View.OnTouchListener  {
 
     private Handler handler = new Handler(){
         @Override
@@ -52,43 +55,44 @@ public class AValveActivity extends Activity implements View.OnClickListener, Vi
     private Button avalve_btn_valve1,avalve_btn_valve2,avalve_btn_valve3,avalve_btn_valve4,avalve_btn_valve5,avalve_btn_valve6,avalve_btn_valve7,avalve_btn_valve9,avalve_btn_valve11,avalve_btn_valve12,avalve_btn_valve_in,avalve_btn_valve_born;
     private Button avalve_btn1,avalve_btn2,avalve_btn3,avalve_btn4,avalve_btn5,avalve_btn6,avalve_btn7,avalve_btn9,avalve_btn11,avalve_btn12,avalve_btn_in,avalve_btn_born;
     private Boolean flag = true;
+    private View view;
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.avalve_layout);
-        initView();
-        initData();
-        setData();
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.avalve_layout,container,false);
+        return view;
     }
+
 
     /**�ؼ���ʼ��*/
     public void initView(){
 
-        avalve_btn_valve1= (Button)findViewById(R.id.avalve_btn_valve1);
-        avalve_btn_valve2= (Button)findViewById(R.id.avalve_btn_valve2);
-        avalve_btn_valve3= (Button)findViewById(R.id.avalve_btn_valve3);
-        avalve_btn_valve4= (Button)findViewById(R.id.avalve_btn_valve4);
-        avalve_btn_valve5= (Button)findViewById(R.id.avalve_btn_valve5);
-        avalve_btn_valve6= (Button)findViewById(R.id.avalve_btn_valve6);
-        avalve_btn_valve7= (Button)findViewById(R.id.avalve_btn_valve7);
-        avalve_btn_valve_in= (Button)findViewById(R.id.avalve_btn_valve_in);
-        avalve_btn_valve9= (Button)findViewById(R.id.avalve_btn_valve9);
-        avalve_btn_valve_born= (Button)findViewById(R.id.avalve_btn_valve_born);
-        avalve_btn_valve11= (Button)findViewById(R.id.avalve_btn_valve11);
-        avalve_btn_valve12= (Button)findViewById(R.id.avalve_btn_valve12);
-        avalve_btn1 = (Button) findViewById(R.id.avalve_btn1);
-        avalve_btn2 = (Button) findViewById(R.id.avalve_btn2);
-        avalve_btn3 = (Button) findViewById(R.id.avalve_btn3);
-        avalve_btn4 = (Button) findViewById(R.id.avalve_btn4);
-        avalve_btn5 = (Button) findViewById(R.id.avalve_btn5);
-        avalve_btn6 = (Button) findViewById(R.id.avalve_btn6);
-        avalve_btn7 = (Button) findViewById(R.id.avalve_btn7);
-        avalve_btn_in = (Button) findViewById(R.id.avalve_btn_in);
-        avalve_btn9 = (Button) findViewById(R.id.avalve_btn9);
-        avalve_btn_born = (Button) findViewById(R.id.avalve_btn_born);
-        avalve_btn11 = (Button) findViewById(R.id.avalve_btn11);
-        avalve_btn12 = (Button) findViewById(R.id.avalve_btn12);
-        valve_btn_back = (Button)findViewById(R.id.valve_btn_back);
+        avalve_btn_valve1= (Button)view.findViewById(R.id.avalve_btn_valve1);
+        avalve_btn_valve2= (Button)view.findViewById(R.id.avalve_btn_valve2);
+        avalve_btn_valve3= (Button)view.findViewById(R.id.avalve_btn_valve3);
+        avalve_btn_valve4= (Button)view.findViewById(R.id.avalve_btn_valve4);
+        avalve_btn_valve5= (Button)view.findViewById(R.id.avalve_btn_valve5);
+        avalve_btn_valve6= (Button)view.findViewById(R.id.avalve_btn_valve6);
+        avalve_btn_valve7= (Button)view.findViewById(R.id.avalve_btn_valve7);
+        avalve_btn_valve_in= (Button)view.findViewById(R.id.avalve_btn_valve_in);
+        avalve_btn_valve9= (Button)view.findViewById(R.id.avalve_btn_valve9);
+        avalve_btn_valve_born= (Button)view.findViewById(R.id.avalve_btn_valve_born);
+        avalve_btn_valve11= (Button)view.findViewById(R.id.avalve_btn_valve11);
+        avalve_btn_valve12= (Button)view.findViewById(R.id.avalve_btn_valve12);
+        avalve_btn1 = (Button) view.findViewById(R.id.avalve_btn1);
+        avalve_btn2 = (Button) view.findViewById(R.id.avalve_btn2);
+        avalve_btn3 = (Button) view.findViewById(R.id.avalve_btn3);
+        avalve_btn4 = (Button) view.findViewById(R.id.avalve_btn4);
+        avalve_btn5 = (Button) view.findViewById(R.id.avalve_btn5);
+        avalve_btn6 = (Button) view.findViewById(R.id.avalve_btn6);
+        avalve_btn7 = (Button)view.findViewById(R.id.avalve_btn7);
+        avalve_btn_in = (Button) view.findViewById(R.id.avalve_btn_in);
+        avalve_btn9 = (Button) view.findViewById(R.id.avalve_btn9);
+        avalve_btn_born = (Button) view.findViewById(R.id.avalve_btn_born);
+        avalve_btn11 = (Button) view.findViewById(R.id.avalve_btn11);
+        avalve_btn12 = (Button) view.findViewById(R.id.avalve_btn12);
+        valve_btn_back = (Button)view.findViewById(R.id.valve_btn_back);
         avalve_btn1.setOnTouchListener(this);
         avalve_btn2.setOnTouchListener(this);
         avalve_btn3.setOnTouchListener(this);
@@ -231,8 +235,8 @@ public class AValveActivity extends Activity implements View.OnClickListener, Vi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.valve_btn_back:
-                Intent intent = new Intent(AValveActivity.this,MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(AValveActivity.this,MainActivity.class);
+//                startActivity(intent);
                 break;
         }
     }
@@ -399,7 +403,7 @@ public class AValveActivity extends Activity implements View.OnClickListener, Vi
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         flag=false;
     }
